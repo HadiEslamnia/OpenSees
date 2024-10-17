@@ -83,10 +83,6 @@ void* OPS_TwoNodeLink()
         numdata = 1;
         int numArgs = OPS_GetNumRemainingInputArgs();
         if (OPS_GetIntInput(numdata, &mattag) < 0) {
-            if (numArgs > OPS_GetNumRemainingInputArgs()) {
-                // move current arg back by one
-                OPS_ResetCurrentInputArg(-1);
-            }
             break;
         }
         UniaxialMaterial* mat = OPS_getUniaxialMaterial(mattag);
@@ -1084,6 +1080,11 @@ Response* TwoNodeLink::setResponse(const char **argv, int argc,
     OPS_Stream &output)
 {
     Response *theResponse = 0;
+#ifdef _CSS
+	theResponse = Element::setResponse(argv, argc, output);
+	if (theResponse != 0)
+		return theResponse;
+#endif // _CSS
     
     output.tag("ElementOutput");
     output.attr("eleType","TwoNodeLink");
@@ -1174,6 +1175,10 @@ Response* TwoNodeLink::setResponse(const char **argv, int argc,
 
 int TwoNodeLink::getResponse(int responseID, Information &eleInfo)
 {
+#ifdef _CSS
+	if (Element::getResponse(responseID, eleInfo) == 0)
+		return 0;
+#endif // _CSS
     Vector defoAndForce(numDIR*2);
     
     switch (responseID)  {

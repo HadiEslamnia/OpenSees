@@ -109,10 +109,6 @@ void* OPS_ZeroLength()
 	// the first one not an int
 	int numArgs = OPS_GetNumRemainingInputArgs();
         if (OPS_GetIntInput(numdata,&mtag) < 0) {
-	    if (numArgs > OPS_GetNumRemainingInputArgs()) {
-		// move current arg back by one
-		OPS_ResetCurrentInputArg(-1); 
-	    }
 	    break;
         }
 	matTags[numMats] = mtag;
@@ -646,11 +642,6 @@ ZeroLength::commitState()
 {
     int code=0;
 
-    // call element commitState to do any base class stuff
-    if ((code = this->Element::commitState()) != 0) {
-      opserr << "ZeroLength::commitState () - failed in base class";
-    }    
-
     // commit 1d materials
     int numMat = numMaterials1d;
     if (useRayleighDamping == 2)
@@ -658,6 +649,11 @@ ZeroLength::commitState()
     for (int i=0; i<numMat; i++) 
 	code += theMaterial1d[i]->commitState();
 
+
+    // call element commitState to do any base class stuff
+    if ((code = this->Element::commitState()) != 0) {
+        opserr << "ZeroLength::commitState () - failed in base class";
+    }
     return code;
 }
 
