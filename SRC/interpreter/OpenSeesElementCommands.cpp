@@ -77,6 +77,7 @@ void* OPS_TrussElement();
 void* OPS_TrussSectionElement();
 void* OPS_CorotTrussElement();
 void* OPS_CorotTrussSectionElement();
+void* OPS_inerterTruss2d();
 void* OPS_ZeroLengthContactNTS2D();
 void* OPS_ZeroLengthInterface2D();
 void* OPS_ComponentElement2d();
@@ -600,6 +601,8 @@ namespace {
 	functionMap.insert(std::make_pair("CorotTruss", &OPS_CorotTrussElement));
 	functionMap.insert(std::make_pair("corotTrussSection", &OPS_CorotTrussSectionElement));
 	functionMap.insert(std::make_pair("CorotTrussSection", &OPS_CorotTrussSectionElement));
+	functionMap.insert(std::make_pair("InerterTruss2d", &OPS_inerterTruss2d));
+	functionMap.insert(std::make_pair("inerterTruss2d", &OPS_inerterTruss2d));
 	functionMap.insert(std::make_pair("zeroLengthContactNTS2D", &OPS_ZeroLengthContactNTS2D));
 	functionMap.insert(std::make_pair("zeroLengthInterface2D", &OPS_ZeroLengthInterface2D));
 	functionMap.insert(std::make_pair("componentElement2d", &OPS_ComponentElement2d));
