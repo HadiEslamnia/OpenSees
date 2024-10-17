@@ -81,6 +81,7 @@ Vector inerterTruss2d::inerterTruss2dV6(6);
 //   inertance is defined with a restoring force. Accordingly, a nonlinear solver is
 //   necessary when using this element, even for linear problems.
 //
+#define OPS_Export 
 
 OPS_Export void localInit() {
     OPS_Error("inerterTruss2d element\n  "
